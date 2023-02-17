@@ -10,31 +10,71 @@ public class GameManager : MonoBehaviour
     public Vector3 cameraOvenPosition;
     public Quaternion cameraOvenRotation;
 
-    public GameObject ingredientsManager;
-    public List<Button> ingredients;
+    public List<GameObject> theStates;
 
     public Camera theCamera;
 
     public CootsManager cootsManager;
 
     private float time;
-    private int roundState;
+    private int currentState;
+    private int gamePhase;
     // Start is called before the first frame update
     void Start()
     {
         theCamera.transform.position = cameraTablePosition;
         theCamera.transform.rotation = cameraTableRotation;
-        roundState = 0;
+        currentState = 0;
+        gamePhase = 0;
         cootsManager.enabled = true;
+
+        theStates[currentState].SetActive(true); 
     }
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-        if((int)RoundStates.Round1 == roundState)
-        {
+    }
 
+    public void ChangeState(bool isSuccess)
+    {
+        if (isSuccess)
+        {
+            theStates[currentState].SetActive(false);
+            currentState++;
+            theStates[currentState].SetActive(true);
+        }
+
+        else
+        {
+            if(currentState <= 6)
+            {
+                theStates[currentState].SetActive(false);
+                currentState = 0;
+                theStates[currentState].SetActive(true);
+            }
+
+            else if(currentState <= 10)
+            {
+                theStates[currentState].SetActive(false);
+                currentState = 7;
+                theStates[currentState].SetActive(true);
+            }
+
+            else if (currentState <= 14)
+            {
+                theStates[currentState].SetActive(false);
+                currentState = 11;
+                theStates[currentState].SetActive(true);
+            }
+
+            else if (currentState <= 16)
+            {
+                theStates[currentState].SetActive(false);
+                currentState = 15;
+                theStates[currentState].SetActive(true);
+            }
         }
     }
 }

@@ -17,6 +17,7 @@ public class CootsManager : MonoBehaviour
     public TextMeshProUGUI rightHandText;
     public bool leftHovered;
     public bool rightHovered;
+    public bool cootsSucceeds;
 
     private float timer;
     private float cootsTimer;
@@ -30,6 +31,7 @@ public class CootsManager : MonoBehaviour
         rightHovered = false;
         resetProgress = false;
         cootsActive = false;
+        cootsSucceeds = false;
         timer = 0;
         randomTime = UnityEngine.Random.Range(minTime, maxTime);
         cootsState = 0;
@@ -79,6 +81,7 @@ public class CootsManager : MonoBehaviour
                 if(percentage >= 100)
                 {
                     CootsWins();
+                    percentage = 0;
                 }
 
                 if(percentage < 0)
@@ -125,6 +128,7 @@ public class CootsManager : MonoBehaviour
         timer = 0;
         cootsActive = false;
         cootsState = 0;
+        cootsSucceeds = true;
     }
 
     public void CootsLoses()
