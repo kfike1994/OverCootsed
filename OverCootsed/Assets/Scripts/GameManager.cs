@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     public CootsManager cootsManager;
 
+    public int pourIngredientsState;
+
     private float time;
     private int currentState;
     private int gamePhase;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
         theCamera.transform.rotation = cameraTableRotation;
         currentState = 0;
         gamePhase = 0;
+        pourIngredientsState = 0;
         cootsManager.enabled = true;
 
         theStates[currentState].SetActive(true); 
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
             {
                 theStates[currentState].SetActive(false);
                 currentState = 0;
+                pourIngredientsState = 0;
                 theStates[currentState].SetActive(true);
             }
 
@@ -59,6 +63,7 @@ public class GameManager : MonoBehaviour
             {
                 theStates[currentState].SetActive(false);
                 currentState = 7;
+                pourIngredientsState = 3;
                 theStates[currentState].SetActive(true);
             }
 
@@ -66,6 +71,7 @@ public class GameManager : MonoBehaviour
             {
                 theStates[currentState].SetActive(false);
                 currentState = 11;
+                pourIngredientsState = 6;
                 theStates[currentState].SetActive(true);
             }
 
@@ -73,6 +79,7 @@ public class GameManager : MonoBehaviour
             {
                 theStates[currentState].SetActive(false);
                 currentState = 15;
+                pourIngredientsState = 8;
                 theStates[currentState].SetActive(true);
             }
         }

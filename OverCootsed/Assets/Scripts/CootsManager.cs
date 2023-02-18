@@ -63,12 +63,16 @@ public class CootsManager : MonoBehaviour
                 if (percentage >= 100)
                 {
                     CootsWins();
+                    percentage = 0;
+                    cootsTimer = 0;
+                    leftHandText.text = percentage + "%";
                 }
 
-                if (percentage < 0)
+                else if (percentage < 0)
                 {
                     CootsLoses();
                     percentage = 0;
+                    cootsTimer = 0;
                     leftHandText.text = percentage + "%";
                 }
             }
@@ -82,12 +86,15 @@ public class CootsManager : MonoBehaviour
                 {
                     CootsWins();
                     percentage = 0;
+                    cootsTimer = 0;
+                    rightHandText.text = percentage + "%";
                 }
 
-                if(percentage < 0)
+                else if(percentage < 0)
                 {
                     CootsLoses();
                     percentage = 0;
+                    cootsTimer = 0;
                     rightHandText.text = percentage + "%";
                 }
             }
