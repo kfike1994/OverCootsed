@@ -25,6 +25,11 @@ public class MixingIngredientsManager : MonoBehaviour
         }
     }
 
+    public void OnClick()
+    {
+
+    }
+
     public void OnSuccess()
     {
         gameManager.GetComponent<GameManager>().ChangeState(true);
