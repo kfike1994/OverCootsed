@@ -4099,13 +4099,18 @@ MonoBehaviour:
   maxTime: 5
   attackTime: 5
   resetProgress: 0
-  leftHand: {fileID: 147512727}
+  leftHandButton: {fileID: 0}
+  leftHand: {fileID: 0}
+  leftHandEnd: {fileID: 0}
   leftHandText: {fileID: 1645295901}
-  rightHand: {fileID: 1041240383}
+  rightHandButton: {fileID: 0}
+  rightHand: {fileID: 0}
+  rightHandEnd: {fileID: 0}
   rightHandText: {fileID: 344831861}
   leftHovered: 0
   rightHovered: 0
   cootsSucceeds: 0
+  mouseHeld: 0
 --- !u!1 &1077286943
 GameObject:
   m_ObjectHideFlags: 0
@@ -6148,7 +6153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTablePosition: {x: 0, y: 0, z: 0}
-  cameraTableRotation: {x: 0, y: 0, z: 0, w: 22.6}
+  cameraTableRotation: {x: 22.6, y: 0, z: 0, w: 0}
   cameraOvenPosition: {x: 0, y: 0, z: 0}
   cameraOvenRotation: {x: 0, y: 0, z: 0, w: 0}
   theStates:
@@ -7948,6 +7953,10 @@ MonoBehaviour:
   mixingIngredient: {fileID: 1548002695}
   gameManager: {fileID: 1413082517}
   cootsManager: {fileID: 1052618403}
+  progressBar: {fileID: 0}
+  currentMixes: 0
+  fillSpeed: 0.05
+  totalMixes: 0
 --- !u!4 &1798948849 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6514352837798363727, guid: a89fee1e99cccc846919abb72ee7f552, type: 3}
