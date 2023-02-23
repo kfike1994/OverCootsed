@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public Vector3 cameraTablePosition;
-    public Quaternion cameraTableRotation;
+    public Vector3 cameraTableRotation;
     public Vector3 cameraOvenPosition;
-    public Quaternion cameraOvenRotation;
+    public Vector3 cameraOvenRotation;
 
     public List<GameObject> theStates;
 
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         theCamera.transform.position = cameraTablePosition;
-        theCamera.transform.rotation = cameraTableRotation;
+        theCamera.transform.rotation = Quaternion.Euler(cameraTableRotation);
         currentState = 0;
         gamePhase = 0;
         pourIngredientsState = 0;
