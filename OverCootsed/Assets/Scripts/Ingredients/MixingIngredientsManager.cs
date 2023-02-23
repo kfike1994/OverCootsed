@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MixingIngredientsManager : MonoBehaviour
 {
     public GameObject mixingIngredient;
     public GameObject gameManager;
     public GameObject cootsManager;
+
+    public Image progressBar;
+
+    public int currentMixes;
+    public float fillSpeed = 0.05f;
+    public int totalMixes;
     void OnEnable()
     {
         mixingIngredient.SetActive(true);
+        progressBar.fillAmount = 0;
     }
 
     private void OnDisable()
@@ -27,7 +35,12 @@ public class MixingIngredientsManager : MonoBehaviour
 
     public void OnClick()
     {
+        progressBar.fillAmount += fillSpeed;
 
+        if(progressBar.fillAmount == 1)
+        {
+            OnSuccess();
+        }
     }
 
     public void OnSuccess()

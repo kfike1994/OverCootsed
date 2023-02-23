@@ -12,11 +12,11 @@ public class MainMenu : MonoBehaviour
 
     public void OnCreditsClick()
     {
-        SceneManager.LoadScene("MyScene");
+        SceneManager.LoadScene("CreditsScreen");
     }
 
     public void OnExitClick()
     {
-
+        Application.Quit();
     }
 }

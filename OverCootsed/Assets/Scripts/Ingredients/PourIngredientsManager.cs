@@ -56,7 +56,6 @@ public class PourIngredientsManager : MonoBehaviour
 
         else
         {
-            Debug.Log(currentStrength);
             if (currentStrength <= 0 && currentGrams >= totalGrams)
             {
                 OnSuccess();
