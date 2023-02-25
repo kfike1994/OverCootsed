@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,6 +19,7 @@ public class PourIngredientsManager : MonoBehaviour
     public GameObject gameManager;
     public GameObject cootsManager;
     public GameObject info;
+    public ParticleSystem particles;
 
     private bool held;
 
@@ -38,6 +40,7 @@ public class PourIngredientsManager : MonoBehaviour
     private void OnDisable()
     {
         pourableIngredient.SetActive(false);
+        particles.Stop();
     }
 
     // Update is called once per frame
@@ -47,6 +50,8 @@ public class PourIngredientsManager : MonoBehaviour
         {
             time = Time.deltaTime * currentStrength;
             currentGrams += time;
+
+            particles.Play();
 
             if (currentStrength < totalStrength)
             {
@@ -67,13 +72,18 @@ public class PourIngredientsManager : MonoBehaviour
                 currentGrams += time;
                 currentStrength -= 0.01f;
             }
+
+            else 
+            {
+                particles.Stop();
+            }
         }
 
         if (cootsManager.GetComponent<CootsManager>().cootsSucceeds)
         {
             OnFail();
         }
-        info.GetComponent<TextMeshProUGUI>().text = currentGrams + " / " + totalGrams;
+        info.GetComponent<TextMeshProUGUI>().text = Math.Round(currentGrams, 2) + " / " + totalGrams;
     }
 
     public void onHold()
@@ -90,12 +100,14 @@ public class PourIngredientsManager : MonoBehaviour
     public void OnSuccess()
     {
         gameManager.GetComponent<GameManager>().pourIngredientsState++;
+        info.SetActive(false);
         gameManager.GetComponent<GameManager>().ChangeState(true);
     }
 
     public void OnFail()
     {
         cootsManager.GetComponent<CootsManager>().cootsSucceeds = false;
+        info.SetActive(false);
         gameManager.GetComponent<GameManager>().ChangeState(false);
     }
 }

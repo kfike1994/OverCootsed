@@ -19,14 +19,21 @@ public class CootsManager : MonoBehaviour
     public GameObject rightHand;
     public GameObject rightHandEnd;
     public TextMeshProUGUI rightHandText;
+    public GameObject cootsShadow;
+    public GameObject cootsBlockButton;
+    public GameObject cootsShadowEnd;
+    public GameObject OvenManager;
     public bool leftHovered;
     public bool rightHovered;
+    public bool shadowHovered;
     public bool cootsSucceeds;
 
     private Vector3 leftHandStartPos;
     private Vector3 rightHandStartPos;
+    private Vector3 cootsShadowStartPos;
     private Vector3 differenceLeft;
     private Vector3 differenceRight;
+    private Vector3 differenceShadow;
     public bool mouseHeld;
     private float timer;
     private float cootsTimer;
@@ -38,6 +45,7 @@ public class CootsManager : MonoBehaviour
     {
         leftHovered = false;
         rightHovered = false;
+        shadowHovered = false;
         resetProgress = false;
         cootsActive = false;
         cootsSucceeds = false;
@@ -45,10 +53,12 @@ public class CootsManager : MonoBehaviour
         timer = 0;
         randomTime = UnityEngine.Random.Range(minTime, maxTime);
         cootsState = 0;
-        leftHandStartPos = leftHand.transform.position;
-        rightHandStartPos = rightHand.transform.position;
-        differenceLeft = leftHandEnd.transform.position - leftHandStartPos;
-        differenceRight = rightHandEnd.transform.position - rightHandStartPos;
+        leftHandStartPos = leftHand.transform.localPosition;
+        rightHandStartPos = rightHand.transform.localPosition;
+        cootsShadowStartPos = cootsShadow.transform.position;
+        differenceLeft = leftHandEnd.transform.localPosition - leftHandStartPos;
+        differenceRight = rightHandEnd.transform.localPosition - rightHandStartPos;
+        differenceShadow = cootsShadowEnd.transform.position - cootsShadowStartPos;
     }
 
     // Update is called once per frame
@@ -67,6 +77,7 @@ public class CootsManager : MonoBehaviour
         timer += Time.deltaTime;
         leftHovered = leftHandButton.GetComponent<CootsHands>().hovered;
         rightHovered = rightHandButton.GetComponent<CootsHands>().hovered;
+        shadowHovered = cootsBlockButton.GetComponent<CootsTail>().hovered;
 
         if (timer >= randomTime || cootsActive)
         {
@@ -75,13 +86,13 @@ public class CootsManager : MonoBehaviour
             {
                 cootsActive = true;
                 randomTime = UnityEngine.Random.Range(minTime, maxTime);
-                cootsState = UnityEngine.Random.Range(0, 2);
+                cootsState = UnityEngine.Random.Range(0, 4);
             }
 
             if ((int)CootsStates.LeftHand == cootsState)
             {
                 int percentage = CootsAttackTimer(leftHovered);
-                leftHand.transform.position = leftHandStartPos + differenceLeft * ((float)percentage / 100);
+                leftHand.transform.localPosition = leftHandStartPos + differenceLeft * ((float)percentage / 100);
                 leftHandText.text = percentage + "%";
 
                 if (percentage >= 100)
@@ -105,13 +116,13 @@ public class CootsManager : MonoBehaviour
             else if ((int)CootsStates.RightHand == cootsState)
             {
                 int percentage = CootsAttackTimer(rightHovered);
-                rightHand.transform.position = rightHandStartPos + differenceRight * ((float)percentage / 100);
+                rightHand.transform.localPosition = rightHandStartPos + differenceRight * ((float)percentage / 100);
                 rightHandText.text =  percentage + "%";
 
                 if(percentage >= 100)
                 {
                     CootsWins();
-                    rightHand.transform.position = rightHandStartPos;
+                    rightHand.transform.localPosition = rightHandStartPos;
                     percentage = 0;
                     cootsTimer = 0;
                     rightHandText.text = percentage + "%";
@@ -128,12 +139,30 @@ public class CootsManager : MonoBehaviour
 
             else if ((int)CootsStates.Tail == cootsState)
             {
+                int percentage = CootsTailAttackTimer(shadowHovered);
+                cootsShadow.transform.position = cootsShadowStartPos + differenceShadow * ((float)percentage / 100);
+                if (percentage >= 50 && percentage <= 90 && !shadowHovered)
+                {
+                    CootsWins();
+                    percentage = 0;
+                    cootsTimer = 0;
+                    cootsShadow.transform.position = cootsShadowStartPos;
+                }
 
+                else if(percentage >= 100)
+                {
+                    CootsLoses();
+                    percentage = 0;
+                    cootsTimer = 0;
+                    cootsShadow.transform.position = cootsShadowStartPos;
+                }
             }
 
             else if ((int)CootsStates.Oven == cootsState)
             {
-
+                CootsLoses();
+                OvenManager.GetComponent<OvenManager>().isOvenOn = false;
+                OvenManager.GetComponent<OvenManager>().textOfButton.text = "Oven Is Off";
             }
         }
     }
@@ -150,6 +179,15 @@ public class CootsManager : MonoBehaviour
             cootsTimer += Time.deltaTime;
         }
 
+        float percentage = (cootsTimer / attackTime) * 100;
+        int timeTillComplete = (int)percentage;
+
+        return timeTillComplete;
+    }
+
+    public int CootsTailAttackTimer(bool isHovered)
+    {
+        cootsTimer += Time.deltaTime;
         float percentage = (cootsTimer / attackTime) * 100;
         int timeTillComplete = (int)percentage;
 
