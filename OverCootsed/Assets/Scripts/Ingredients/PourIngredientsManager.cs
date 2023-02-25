@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class PourIngredientsManager : MonoBehaviour
 {
-    public int totalGrams;
+    public float totalGrams;
     public float currentGrams;
-    public int totalStrength;
+    public float totalStrength;
     public float currentStrength;
     public float time;
 
@@ -61,7 +61,7 @@ public class PourIngredientsManager : MonoBehaviour
 
         else
         {
-            if (currentStrength <= 0 && currentGrams >= totalGrams)
+            if (currentGrams >= totalGrams)
             {
                 OnSuccess();
             }
@@ -83,7 +83,7 @@ public class PourIngredientsManager : MonoBehaviour
         {
             OnFail();
         }
-        info.GetComponent<TextMeshProUGUI>().text = Math.Round(currentGrams, 2) + " / " + totalGrams;
+        info.GetComponent<TextMeshProUGUI>().text = (Math.Round(currentGrams * 100f) / 100f) + " / " + totalGrams + "g";
     }
 
     public void onHold()

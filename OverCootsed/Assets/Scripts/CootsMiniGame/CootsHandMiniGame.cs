@@ -29,41 +29,40 @@ public class CootsHandMiniGame : MonoBehaviour
         update += Time.deltaTime;
         if (update > 5.0f)
         {
-        Vector3 offset = movementVector  * movementFactor;
-        transform.position = startingPosition + offset;
+            Vector3 offset = movementVector  * movementFactor;
+            transform.position = startingPosition + offset;
         
-        if(movementFactor < 1)
-        {
-             movementFactor = movementFactor +handspeed*Time.deltaTime;
-        }
+            if(movementFactor < 1)
+            {
+                 movementFactor = movementFactor +handspeed*Time.deltaTime;
+            }
         
-         if (Input.GetKeyDown(KeyCode.Mouse0))
-         {
-            movementFactor = movementFactor -clickpower;
-         }
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                movementFactor = movementFactor -clickpower;
+            }
          
-         if(movementFactor > 1)
-        {
-            Lose();
+            if(movementFactor > 1)
+            {
+                Lose();
+            }
+            if(transform.position.x > 3.1f)
+            {
+                Win();
+            }
         }
-        if(transform.position.x > 3.1f)
-        {
-            Win();
-        }
-    }
-        
-        
     }
     void Lose()
-        {
-            Debug.Log("you LOSE");
-            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-     void Win()
-        {
-            Debug.Log("win");
-            
-            // SceneManager.LoadScene("GameScene");
-        }
+    {
+        Debug.Log("you LOSE");
+
+        PlayerPrefs.SetInt("rating", 0);
+        SceneManager.LoadScene("ScoreScreen");
+    }
+    void Win()
+    {
+        Debug.Log("win");
+        PlayerPrefs.SetInt("rating", 1);
+        SceneManager.LoadScene("ScoreScreen");
+    }
 }

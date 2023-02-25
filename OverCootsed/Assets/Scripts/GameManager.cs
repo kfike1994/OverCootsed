@@ -2,26 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public float gameTimer;
+
     public Vector3 cameraTablePosition;
     public Vector3 cameraTableRotation;
     public Vector3 cameraOvenPosition;
     public Vector3 cameraOvenRotation;
 
     public List<GameObject> theStates;
+    //I know this is dirty, but I am running out of time.
+    public List<string> theStatesText;
 
     public Camera theCamera;
 
     public CootsManager cootsManager;
     public GameObject ovenManager;
 
+    public float score;
+
     public GameObject cookingCanvas;
     public GameObject cootsCanvas;
     public GameObject ovenCanvas;
     public GameObject informationText;
+    public GameObject informationImage;
+    public TextMeshProUGUI currentTask;
+    public TextMeshProUGUI completedTasks;
+    public TextMeshProUGUI timerText;
 
     public GameObject switchSceneText;
 
@@ -40,6 +51,7 @@ public class GameManager : MonoBehaviour
         currentState = 0;
         gamePhase = 0;
         pourIngredientsState = 0;
+        score = 0;
         cootsManager.enabled = true;
 
         cookingScreen = true;
@@ -55,17 +67,17 @@ public class GameManager : MonoBehaviour
         if (Time.timeScale == 0)
         {
             time += Time.unscaledDeltaTime;
-            if(time <= 5)
+            if(time <= 3)
             {
                 if (successScreen)
                 {
-                    informationText.SetActive(true);
+                    informationImage.SetActive(true);
                     informationText.GetComponent<TextMeshProUGUI>().text = "NICE!";
                 }
 
                 else
                 {
-                    informationText.SetActive(true);
+                    informationImage.SetActive(true);
                     informationText.GetComponent<TextMeshProUGUI>().text = "GET COOTSED!";
                 }
             }
@@ -74,8 +86,20 @@ public class GameManager : MonoBehaviour
             {
                 Time.timeScale = 1;
                 time = 0;
-                informationText.SetActive(false);
+                informationImage.SetActive(false);
             }
+        }
+
+        gameTimer -= Time.deltaTime;
+
+        float minutes = Mathf.FloorToInt(gameTimer / 60);
+        float seconds = Mathf.FloorToInt(gameTimer % 60);
+
+        timerText.text = "Time Left: " + string.Format("{0:00} : {1:00}", minutes, seconds);
+
+        if(gameTimer <= 0)
+        {
+            OnGameEnd(true);
         }
     }
 
@@ -85,9 +109,19 @@ public class GameManager : MonoBehaviour
         {
             theStates[currentState].SetActive(false);
             currentState++;
+            completedTasks.text = "Task: " + currentState + "/" + theStates.Count; 
             Time.timeScale = 0;
             successScreen = true;
-            theStates[currentState].SetActive(true);
+            if (currentState <= theStates.Count)
+            {
+                theStates[currentState].SetActive(true);
+                currentTask.text = theStatesText[currentState];
+            }
+
+            else if(ovenManager.GetComponent<OvenManager>().progressBar.fillAmount == 1)
+            {
+                OnGameEnd(false);
+            }
         }
 
         else
@@ -97,6 +131,8 @@ public class GameManager : MonoBehaviour
                 theStates[currentState].SetActive(false);
                 currentState = 0;
                 pourIngredientsState = 0;
+                currentTask.text = theStatesText[currentState];
+                completedTasks.text = "Task: " + currentState + "/" + theStates.Count;
                 theStates[currentState].SetActive(true);
             }
 
@@ -105,6 +141,8 @@ public class GameManager : MonoBehaviour
                 theStates[currentState].SetActive(false);
                 currentState = 7;
                 pourIngredientsState = 3;
+                currentTask.text = theStatesText[currentState];
+                completedTasks.text = "Task: " + currentState + "/" + theStates.Count;
                 theStates[currentState].SetActive(true);
             }
 
@@ -113,6 +151,8 @@ public class GameManager : MonoBehaviour
                 theStates[currentState].SetActive(false);
                 currentState = 11;
                 pourIngredientsState = 6;
+                currentTask.text = theStatesText[currentState];
+                completedTasks.text = "Task: " + currentState + "/" + theStates.Count;
                 theStates[currentState].SetActive(true);
             }
 
@@ -121,6 +161,8 @@ public class GameManager : MonoBehaviour
                 theStates[currentState].SetActive(false);
                 currentState = 15;
                 pourIngredientsState = 8;
+                currentTask.text = theStatesText[currentState];
+                completedTasks.text = "Task: " + currentState + "/" + theStates.Count;
                 theStates[currentState].SetActive(true);
             }
             Time.timeScale = 0;
@@ -154,6 +196,21 @@ public class GameManager : MonoBehaviour
             theCamera.transform.position = cameraTablePosition;
             theCamera.transform.rotation = Quaternion.Euler(cameraTableRotation);
             cookingScreen = true;
+        }
+    }
+
+    public void OnGameEnd(bool cootsDominated)
+    {
+        if(cootsDominated)
+        {
+            PlayerPrefs.SetFloat("rating", 0);
+            SceneManager.LoadScene("ScoreScreen");
+        }
+
+        else
+        {
+            PlayerPrefs.SetFloat("rating", 1);
+            SceneManager.LoadScene("CootsMinigame");
         }
     }
 }

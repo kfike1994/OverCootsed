@@ -11,6 +11,8 @@ public class MixingIngredientsManager : MonoBehaviour
 
     public Image progressBar;
 
+    public float score;
+
     public int currentMixes;
     public float fillSpeed = 0.05f;
     public int totalMixes;
@@ -46,6 +48,7 @@ public class MixingIngredientsManager : MonoBehaviour
     public void OnSuccess()
     {
         gameManager.GetComponent<GameManager>().ChangeState(true);
+        score = 100;
     }
 
     public void OnFail()

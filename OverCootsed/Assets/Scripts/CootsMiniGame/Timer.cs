@@ -28,13 +28,13 @@ public class Timer : MonoBehaviour
         if (update > 5.0f)   
         {
             currentTime -= 1 * 2 * Time.deltaTime;
-        countdownText.text = currentTime.ToString("0");
+            countdownText.text = currentTime.ToString("0");
 
-        if (currentTime <= 0.1f)
-        {
-            currentTime = 0;
+            if (currentTime <= 0.1f)
+            {
+                currentTime = 0;
             
-        }
+            }
         }
 
     }
