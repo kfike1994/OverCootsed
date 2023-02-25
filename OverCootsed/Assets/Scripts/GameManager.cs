@@ -101,6 +101,11 @@ public class GameManager : MonoBehaviour
         {
             OnGameEnd(true);
         }
+
+        if(currentState == 16 && ovenManager.GetComponent<OvenManager>().progressBar.fillAmount == 1)
+        {
+            OnGameEnd(false);
+        }
     }
 
     public void ChangeState(bool isSuccess)
@@ -112,7 +117,7 @@ public class GameManager : MonoBehaviour
             completedTasks.text = "Task: " + currentState + "/" + theStates.Count; 
             Time.timeScale = 0;
             successScreen = true;
-            if (currentState <= theStates.Count)
+            if (currentState < theStates.Count)
             {
                 theStates[currentState].SetActive(true);
                 currentTask.text = theStatesText[currentState];
@@ -146,7 +151,7 @@ public class GameManager : MonoBehaviour
                 theStates[currentState].SetActive(true);
             }
 
-            else if (currentState <= 14)
+            else if (currentState <= 15)
             {
                 theStates[currentState].SetActive(false);
                 currentState = 11;
@@ -156,15 +161,6 @@ public class GameManager : MonoBehaviour
                 theStates[currentState].SetActive(true);
             }
 
-            else if (currentState <= 16)
-            {
-                theStates[currentState].SetActive(false);
-                currentState = 15;
-                pourIngredientsState = 8;
-                currentTask.text = theStatesText[currentState];
-                completedTasks.text = "Task: " + currentState + "/" + theStates.Count;
-                theStates[currentState].SetActive(true);
-            }
             Time.timeScale = 0;
             successScreen = false;
         }
@@ -204,12 +200,14 @@ public class GameManager : MonoBehaviour
         if(cootsDominated)
         {
             PlayerPrefs.SetFloat("rating", 0);
+            Time.timeScale = 1;
             SceneManager.LoadScene("ScoreScreen");
         }
 
         else
         {
             PlayerPrefs.SetFloat("rating", 1);
+            Time.timeScale = 1;
             SceneManager.LoadScene("CootsMinigame");
         }
     }

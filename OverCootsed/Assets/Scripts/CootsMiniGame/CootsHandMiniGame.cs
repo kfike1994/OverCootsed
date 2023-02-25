@@ -25,7 +25,6 @@ public class CootsHandMiniGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         update += Time.deltaTime;
         if (update > 5.0f)
         {
@@ -46,7 +45,8 @@ public class CootsHandMiniGame : MonoBehaviour
             {
                 Lose();
             }
-            if(transform.position.x > 3.1f)
+
+            if(transform.position.x > 3.1f || update >= 35f)
             {
                 Win();
             }

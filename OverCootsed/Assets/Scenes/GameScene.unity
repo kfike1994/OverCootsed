@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: dd6c3ff79c6c618418bb124ad8bc81f8, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -10645,7 +10645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aba54aa789f564c8f3df8e41405f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pan: {fileID: 0}
+  pan: {fileID: 1106512483}
   gameManager: {fileID: 1413082517}
   cootsManager: {fileID: 1052618403}
 --- !u!1 &963194225
@@ -13110,8 +13110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33391727ed83e124997a3d3b5055ec95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalGrams: 100
-  strength: 10
+  totalGrams: 160
+  strength: 20
 --- !u!114 &1299347974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13610,6 +13610,7 @@ MonoBehaviour:
   - Mixtrure
   - Add 160g of Choclate Chips
   - Mix Together
+  - Plavce Cookies on Pan
   theCamera: {fileID: 963194227}
   cootsManager: {fileID: 1052618405}
   ovenManager: {fileID: 1589862894}

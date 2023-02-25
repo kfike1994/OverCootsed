@@ -20,7 +20,7 @@ public class WinScreen : MonoBehaviour
         update += Time.deltaTime;
         if (update > 35f)
         {
-            GetComponent<Renderer>().enabled=true;
+            GetComponent<Renderer>().enabled=false;
         }
     }
 }

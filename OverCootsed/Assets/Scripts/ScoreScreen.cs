@@ -13,7 +13,7 @@ public class ScoreScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rating = PlayerPrefs.GetInt("rating");
+        rating = 1;
         if (rating == 0)
         {
             images[1].SetActive(true);
@@ -22,7 +22,7 @@ public class ScoreScreen : MonoBehaviour
 
         else if (rating == 1)
         {
-            images[1].SetActive(true);
+            images[0].SetActive(true);
             score.text = "You Did It!";
         }
     }
