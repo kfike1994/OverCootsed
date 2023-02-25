@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void OnPlayClick()
     {
-        SceneManager.LoadScene("TutorialScreen");
+        SceneManager.LoadScene("GameScene");
     }
 
     public void OnCreditsClick()

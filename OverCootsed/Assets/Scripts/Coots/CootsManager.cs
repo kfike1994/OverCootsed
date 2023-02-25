@@ -23,6 +23,7 @@ public class CootsManager : MonoBehaviour
     public GameObject cootsBlockButton;
     public GameObject cootsShadowEnd;
     public GameObject OvenManager;
+    public AudioSource ovenSound;
     public bool leftHovered;
     public bool rightHovered;
     public bool shadowHovered;
@@ -141,7 +142,7 @@ public class CootsManager : MonoBehaviour
             {
                 int percentage = CootsTailAttackTimer(shadowHovered);
                 cootsShadow.transform.position = cootsShadowStartPos + differenceShadow * ((float)percentage / 100);
-                if (percentage >= 50 && percentage <= 90 && !shadowHovered)
+                if (percentage >= 50 && percentage <= 80 && !shadowHovered)
                 {
                     CootsWins();
                     percentage = 0;
@@ -161,8 +162,13 @@ public class CootsManager : MonoBehaviour
             else if ((int)CootsStates.Oven == cootsState)
             {
                 CootsLoses();
-                OvenManager.GetComponent<OvenManager>().isOvenOn = false;
-                OvenManager.GetComponent<OvenManager>().textOfButton.text = "Oven Is Off";
+                Debug.Log(OvenManager.GetComponent<OvenManager>().isOvenOn);
+                if (OvenManager.GetComponent<OvenManager>().isOvenOn)
+                {
+                    ovenSound.Play();
+                    OvenManager.GetComponent<OvenManager>().isOvenOn = false;
+                    OvenManager.GetComponent<OvenManager>().textOfButton.text = "Oven Is Off";
+                }
             }
         }
     }
