@@ -17087,8 +17087,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: -2}
-  m_SizeDelta: {x: 582.15, y: 63.18}
+  m_AnchoredPosition: {x: 16, y: 2}
+  m_SizeDelta: {x: 773.23, y: 63.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1993085489
 MonoBehaviour:
@@ -17110,7 +17110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Block SHadow Coots
+  m_text: Hover to Block Shadow Coots
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d4691e110a9850e43a72249a7c3ad864, type: 2}
   m_sharedMaterial: {fileID: -4897002230284040810, guid: d4691e110a9850e43a72249a7c3ad864, type: 2}
